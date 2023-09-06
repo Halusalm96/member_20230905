@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class MemberController {
@@ -54,6 +55,13 @@ public class MemberController {
         // 세션 전체를 없앨 경우
 //        session.invalidate();
         return "index";
+    }
+
+    @GetMapping("/members")
+    public String findAll(Model model) {
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        model.addAttribute("memberList",memberDTOList);
+        return "memberList";
     }
 
 }
