@@ -2,58 +2,58 @@ package com.icia.member.controller;
 
 import com.icia.member.dto.MemberDTO;
 import com.icia.member.service.MemberService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class MemberController {
     @Autowired
     private MemberService memberService;
-    @GetMapping ("/save")
-    public String save(){
-        return "save";
+
+    @GetMapping("/save")
+    public String saveForm() {
+        return "memberSave";
     }
-    @PostMapping ("/memberSave")
-    public String memberSave(@ModelAttribute MemberDTO memberDTO){
+
+    @PostMapping("/save")
+    public String save(@ModelAttribute MemberDTO memberDTO) {
         boolean result = memberService.save(memberDTO);
-        if(result) {
-            return "main";
-        }else {
-            return "index";
+        if (result) {
+            return "memberLogin";
+        } else {
+            return "memberSave";
         }
-    }
-
-    @GetMapping("/list")
-    public String list(Model model){
-        List<MemberDTO> memberDTOList = memberService.list();
-        model.addAttribute("memberList",memberDTOList);
-        return "list";
-    }
-
-    @GetMapping("/login")
-    public String login(){
-        return "login";
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("memberEmail") String memberEmail,@RequestParam("memberPassword") String memberPassword, Model model) {
-        boolean num = memberService.memberLogin(memberEmail,memberPassword);
-        if(num) {
-            MemberDTO memberDTO1 = memberService.memberLoginInsert(memberEmail,memberPassword);
-            model.addAttribute("memberLoginInsert",memberDTO1);
-            return "main";
-        }else {
-            return "index";
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
+        boolean loginResult = memberService.login(memberDTO);
+        if (loginResult) {
+            // 로그인 성공시 사용자의 이메일을 세션에 저장
+            session.setAttribute("loginEmail", memberDTO.getMemberEmail());
+            // 모델에 이메일 저장
+            model.addAttribute("email", memberDTO.getMemberEmail());
+            return "memberMain";
+        } else {
+            return "memberLogin";
         }
     }
+
     @GetMapping("/logout")
-    public String logout(){
+    public String logout(HttpSession session) {
+        // 아래 방법 중 한가지만 사용
+        // 해당 파라미터만 없앨 경우
+        session.removeAttribute("loginEmail");
+        // 세션 전체를 없앨 경우
+//        session.invalidate();
         return "index";
     }
+
 }
