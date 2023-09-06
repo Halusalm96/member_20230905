@@ -5,6 +5,9 @@
   <link rel="stylesheet" href="/resources/css/main.css">
 </head>
 <body>
+<%@include file="component/header.jsp"%>
+<%@include file="component/nav.jsp"%>
+<%@include file="component/footer.jsp"%>
 <h2>Member Project</h2>
 
 로그인이메일: ${sessionScope.loginEmail} <br>
