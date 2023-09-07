@@ -92,4 +92,10 @@ public class MemberController {
         memberService.update(memberDTO);
         return "memberMain";
     }
+
+    @PostMapping("/memberSave")
+    public @ResponseBody MemberDTO saveInput(@ModelAttribute MemberDTO memberDTO) {
+        MemberDTO memberDTO1 = memberService.findByMemberEmail(memberDTO.getMemberEmail());
+        return memberDTO1;
+    }
 }

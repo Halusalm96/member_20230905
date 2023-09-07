@@ -87,6 +87,4 @@ public class AjaxController {
         return new ResponseEntity<>(memberDTOList, HttpStatus.OK);
     }
 
-
-
 }

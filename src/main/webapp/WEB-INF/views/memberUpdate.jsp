@@ -3,6 +3,8 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/main.css">
+
     <style>
         #section {
             margin: auto;
@@ -10,9 +12,8 @@
     </style>
 </head>
 <body>
-<%@include file="component/header.jsp"%>
-<%@include file="component/nav.jsp"%>
-<%@include file="component/footer.jsp"%>
+<%@include file="component/header.jsp" %>
+<%@include file="component/nav.jsp" %>
 <div id="section">
     <form action="/update" method="post" name="updateForm">
         <input type="hidden" name="id" value="${member.id}">
@@ -22,8 +23,10 @@
         <input type="text" name="memberBirth" value="${member.memberBirth}" placeholder="생년월일(YYYYMMDD)" readonly> <br>
         <input type="text" name="memberMobile" value="${member.memberMobile}" placeholder="전화번호"> <br>
         <input type="button" value="수정" onclick="update_fn()">
+        <%--        <button onclick="fun1()">함수호출</button>--%>
     </form>
 </div>
+<%@include file="component/footer.jsp" %>
 </body>
 <script>
     const update_fn = () => {
