@@ -20,4 +20,9 @@ model에 담은 이메일: ${email} <br>
 <a href="/logout">로그아웃</a>
 <a href="/">index로 이동</a>
 </body>
+<script>
+    const update_fn = () => {
+        location.href("/update")
+    }
+</script>
 </html>
