@@ -30,6 +30,11 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/login")
+    public String loginForm() {
+        return "memberLogin";
+    }
+
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
         boolean loginResult = memberService.login(memberDTO);
@@ -80,5 +85,11 @@ public class MemberController {
         MemberDTO memberDTO = memberService.findByMemberEmail(memberEmail);
         model.addAttribute("member",memberDTO);
         return "memberUpdate";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO) {
+        memberService.update(memberDTO);
+        return "memberMain";
     }
 }

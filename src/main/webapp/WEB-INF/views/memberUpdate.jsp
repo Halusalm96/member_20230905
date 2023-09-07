@@ -29,7 +29,11 @@
     const update_fn = () => {
         const passInput = document.getElementById("member-password").value;
         const passDB = '${member.memberPassword}';
-
+        if (passInput == passDB) {
+            document.updateForm.submit();
+        } else {
+            alert("비밀번호가 일치하지 않습니다!");
+        }
     }
 </script>
 </html>
