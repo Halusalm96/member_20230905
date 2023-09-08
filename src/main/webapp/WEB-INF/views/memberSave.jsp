@@ -51,4 +51,25 @@
 
     }
 </script>
+<script>
+    const email_dup_check = () => {
+        const email = document.getElementById("member-email").value;
+        const result = document.getElementById("email-dup-check-result");
+        $.ajax({
+            type: "post",
+            url: "/duplicate-check",
+            data: {
+                memberEmail: email
+            },
+            success: function () {
+                result.innerHTML = "사용가능한 이메일입니다.";
+                result.style.color = "green";
+            },
+            error: function () {
+                result.innerHTML = "이미 사용 중인 이메일입니다.";
+                result.style.color = "red";
+            }
+        });
+    }
+</script>
 </html>

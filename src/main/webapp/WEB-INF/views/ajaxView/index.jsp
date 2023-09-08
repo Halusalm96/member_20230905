@@ -15,6 +15,7 @@
   <a href="/ajax-view08">ajax08</a>
   <a href="/ajax-view09">ajax09</a>
   <a href="/ajax-view10">ajax10</a>
+  <a href="/ajax-view11">ajax11</a>
 </div>
 </body>
 </html>
